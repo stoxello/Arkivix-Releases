@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Download and install the closed-source Arkivix backup server and agents.">
+  <meta name="color-scheme" content="dark light">
+  <title>Arkivix — Downloads and installation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f3f7f5;
+      --muted: #a6b5ae;
+      --line: rgba(255, 255, 255, 0.12);
+      --panel: rgba(17, 29, 27, 0.88);
+      --panel-strong: #13221f;
+      --brand: #75e6b3;
+      --brand-deep: #112d25;
+      --accent: #f0c978;
+      --page: #07100e;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 78% 4%, rgba(62, 151, 115, 0.22), transparent 30rem),
+        radial-gradient(circle at 5% 35%, rgba(240, 201, 120, 0.1), transparent 24rem),
+        var(--page);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 780;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(117, 230, 179, 0.4);
+      border-radius: 12px;
+      color: var(--brand);
+      background: var(--brand-deep);
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      font-size: 18px;
+    }
+
+    nav { display: flex; gap: 24px; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    nav a:hover, nav a:focus-visible { color: var(--ink); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+      min-height: 560px;
+      padding: 70px 0 100px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--brand);
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      font-size: 13px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 6.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.065em;
+    }
+
+    .lead {
+      max-width: 650px;
+      margin: 30px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.04);
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .button.primary { color: #07100e; border-color: var(--brand); background: var(--brand); }
+    .button:hover, .button:focus-visible { transform: translateY(-2px); border-color: var(--brand); }
+
+    .status-card {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(160deg, rgba(117, 230, 179, 0.12), transparent 50%), var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .status-card::after {
+      position: absolute;
+      right: -45px;
+      bottom: -45px;
+      width: 150px;
+      height: 150px;
+      border: 1px solid rgba(117, 230, 179, 0.18);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .status-card h2 { margin: 0 0 8px; font-size: 1.15rem; }
+    .status-card p { margin: 0; color: var(--muted); }
+
+    .status-list {
+      display: grid;
+      gap: 16px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .status-list li {
+      display: grid;
+      grid-template-columns: 10px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      margin-top: 8px;
+      border-radius: 50%;
+      background: var(--brand);
+      box-shadow: 0 0 18px rgba(117, 230, 179, 0.8);
+    }
+
+    section { padding: 86px 0; border-top: 1px solid var(--line); }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 0.65fr 1.35fr;
+      gap: 40px;
+      margin-bottom: 42px;
+    }
+
+    .section-heading h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); letter-spacing: -0.045em; }
+    .section-heading p { max-width: 640px; margin: 8px 0 0; color: var(--muted); }
+
+    .steps, .downloads {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      min-width: 0;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+    }
+
+    .step-number {
+      color: var(--accent);
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      font-size: 13px;
+    }
+
+    .card h3 { margin: 14px 0 8px; font-size: 1.1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    pre {
+      position: relative;
+      overflow-x: auto;
+      margin: 22px 0 0;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: #dff7ec;
+      background: #050b0a;
+      font: 13px/1.65 ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      white-space: pre;
+    }
+
+    .wide-code { grid-column: 1 / -1; }
+
+    .download-card {
+      display: flex;
+      min-height: 190px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), transparent), var(--panel-strong);
+      text-decoration: none;
+    }
+
+    .download-card:hover, .download-card:focus-visible { border-color: var(--brand); }
+    .download-card small { color: var(--brand); font-family: ui-monospace, monospace; }
+    .download-card strong { display: block; margin-top: 12px; font-size: 1.25rem; }
+    .download-card span { color: var(--muted); font-size: 0.9rem; }
+    .download-card .arrow { align-self: flex-end; color: var(--brand); font-size: 1.5rem; }
+
+    .notice {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 24px;
+      border: 1px solid rgba(240, 201, 120, 0.28);
+      border-radius: 16px;
+      background: rgba(240, 201, 120, 0.07);
+    }
+
+    .notice strong { color: var(--accent); }
+    .notice p { margin: 2px 0 0; color: var(--muted); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 38px 0 56px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer a:hover, footer a:focus-visible { color: var(--ink); }
+
+    @media (max-width: 840px) {
+      nav { display: none; }
+      .hero, .section-heading { grid-template-columns: 1fr; }
+      .hero { min-height: auto; padding: 50px 0 80px; }
+      .status-card { max-width: 560px; }
+      .steps, .downloads { grid-template-columns: 1fr; }
+      .wide-code { grid-column: auto; }
+    }
+
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 24px, 1120px); }
+      h1 { font-size: 3.25rem; }
+      section { padding: 64px 0; }
+      .actions, footer { flex-direction: column; }
+      .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="brand" href="#top" aria-label="Arkivix home">
+        <span class="brand-mark" aria-hidden="true">A:</span>
+        <span>Arkivix</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#docker">Docker</a>
+        <a href="#downloads">Downloads</a>
+        <a href="#agents">Agents</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Private code · public binaries</p>
+          <h1>Your backups, under your control.</h1>
+          <p class="lead">Install the Arkivix server and protect Windows and Linux machines without access to the private source repository.</p>
+          <div class="actions">
+            <a class="button primary" href="#docker">Install with Docker</a>
+            <a class="button" href="https://github.com/stoxello/Arkivix-Releases/releases/latest">View latest release</a>
+          </div>
+        </div>
+        <aside class="status-card" aria-label="Release contents">
+          <h2>One public release, everything you need</h2>
+          <p>Self-contained packages with a checksum manifest.</p>
+          <ul class="status-list">
+            <li><span class="dot" aria-hidden="true"></span><span>Windows and Linux x64 servers</span></li>
+            <li><span class="dot" aria-hidden="true"></span><span>Windows and Linux x64 agents</span></li>
+            <li><span class="dot" aria-hidden="true"></span><span>Docker image and persistent data volume</span></li>
+          </ul>
+        </aside>
+      </div>
+
+      <section id="docker">
+        <div class="section-heading">
+          <h2>Install with Docker</h2>
+          <p>Docker Compose is the recommended path. It keeps the dashboard local to the server, restarts automatically, and stores state in a named volume.</p>
+        </div>
+        <div class="steps">
+          <article class="card">
+            <span class="step-number">01 / DOWNLOAD</span>
+            <h3>Get the public Compose file</h3>
+            <p>No source checkout or build tools are required.</p>
+          </article>
+          <article class="card">
+            <span class="step-number">02 / START</span>
+            <h3>Pull and run the image</h3>
+            <p>Arkivix starts in the background and survives restarts.</p>
+          </article>
+          <article class="card">
+            <span class="step-number">03 / OPEN</span>
+            <h3>Visit the dashboard</h3>
+            <p>Open <a href="http://127.0.0.1:5198">127.0.0.1:5198</a> on the server.</p>
+          </article>
+          <pre class="wide-code" aria-label="Docker installation commands"><code>mkdir -p arkivix &amp;&amp; cd arkivix
+curl -fsSLO https://raw.githubusercontent.com/stoxello/Arkivix-Releases/main/docker-compose.yml
+docker compose pull
+docker compose up -d</code></pre>
+        </div>
+        <div class="actions">
+          <a class="button" href="https://raw.githubusercontent.com/stoxello/Arkivix-Releases/main/docker-compose.yml">Download docker-compose.yml</a>
+        </div>
+      </section>
+
+      <section id="downloads">
+        <div class="section-heading">
+          <h2>Server downloads</h2>
+          <p>Prefer a native binary? Each archive is self-contained for its target operating system and does not require the .NET SDK.</p>
+        </div>
+        <div class="downloads">
+          <a class="download-card" href="https://github.com/stoxello/Arkivix-Releases/releases/latest/download/arkivix-server-win-x64.zip">
+            <span><small>WINDOWS · X64</small><strong>Arkivix server</strong><span>ZIP archive</span></span>
+            <span class="arrow" aria-hidden="true">↓</span>
+          </a>
+          <a class="download-card" href="https://github.com/stoxello/Arkivix-Releases/releases/latest/download/arkivix-server-linux-x64.tar.gz">
+            <span><small>LINUX · X64</small><strong>Arkivix server</strong><span>tar.gz archive</span></span>
+            <span class="arrow" aria-hidden="true">↓</span>
+          </a>
+          <a class="download-card" href="https://github.com/stoxello/Arkivix-Releases/releases/latest/download/SHA256SUMS.txt">
+            <span><small>INTEGRITY</small><strong>SHA-256 checksums</strong><span>Verify every archive</span></span>
+            <span class="arrow" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="agents">
+        <div class="section-heading">
+          <h2>Add protected machines</h2>
+          <p>Start in the Arkivix dashboard. It generates a one-time enrollment code and the exact command for the Windows or Linux agent.</p>
+        </div>
+        <div class="downloads">
+          <a class="download-card" href="https://github.com/stoxello/Arkivix-Releases/releases/latest/download/arkivix-agent-win-x64.zip">
+            <span><small>WINDOWS · X64</small><strong>Arkivix agent</strong><span>Includes install-agent.ps1</span></span>
+            <span class="arrow" aria-hidden="true">↓</span>
+          </a>
+          <a class="download-card" href="https://github.com/stoxello/Arkivix-Releases/releases/latest/download/arkivix-agent-linux-x64.tar.gz">
+            <span><small>LINUX · X64</small><strong>Arkivix agent</strong><span>Includes install-agent.sh</span></span>
+            <span class="arrow" aria-hidden="true">↓</span>
+          </a>
+          <article class="card">
+            <span class="step-number">REMOTE AGENTS</span>
+            <h3>Use HTTPS</h3>
+            <p>Agents on another machine require a trusted HTTPS server address. Keep the administration interface private.</p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="closed-source-title">
+        <div class="notice">
+          <strong id="closed-source-title">Closed-source distribution</strong>
+          <p>This public repository contains compiled releases and installation documentation only. Arkivix source code is private and is not needed by customers.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Arkivix binary distribution</span>
+      <span><a href="https://github.com/stoxello/Arkivix-Releases/releases">Release history</a> · <a href="https://github.com/stoxello/Arkivix-Releases">GitHub</a></span>
+    </footer>
+  </div>
+</body>
+</html>

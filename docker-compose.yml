@@ -1,0 +1,22 @@
+services:
+  server:
+    image: ghcr.io/stoxello/arkivix:latest
+    container_name: arkivix
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5198:5198"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      Urls: http://0.0.0.0:5198
+      Arkivix__AllowNonLoopbackAdmin: "true"
+      ARKIVIX_AGENT_RELEASE_BASE_URL: https://github.com/stoxello/Arkivix-Releases/releases/latest/download
+    volumes:
+      - arkivix-data:/app/App_Data
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  arkivix-data:
