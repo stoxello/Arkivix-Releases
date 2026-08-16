@@ -333,7 +333,7 @@
       <section id="docker">
         <div class="section-heading">
           <h2>Install with Docker</h2>
-          <p>Docker Compose is the recommended path. It keeps the dashboard local to the server, restarts automatically, and stores state in a named volume.</p>
+          <p>Docker Compose is the recommended path. It keeps the dashboard local to the server, restarts automatically, and stores state and backup data in separate persistent volumes.</p>
         </div>
         <div class="steps">
           <article class="card">
@@ -359,6 +359,16 @@ docker compose up -d</code></pre>
         <div class="actions">
           <a class="button" href="https://raw.githubusercontent.com/stoxello/Arkivix-Releases/main/docker-compose.yml">Download docker-compose.yml</a>
         </div>
+        <div class="section-heading">
+          <h2>Use a mounted USB drive</h2>
+          <p>Mount the drive on the host, create a writable Arkivix folder, and map it to the container's <code>/mnt/data</code> repository path. Make sure the drive is mounted before Arkivix starts.</p>
+        </div>
+        <pre class="wide-code" aria-label="USB repository setup commands"><code>docker compose down
+sudo mkdir -p /mnt/data/arkivix
+sudo chown 1654:1654 /mnt/data/arkivix
+printf 'ARKIVIX_BACKUP_SOURCE=/mnt/data/arkivix\n' &gt; .env
+docker compose up -d</code></pre>
+        <p>New installations use <code>/mnt/data</code> automatically. For an existing installation, set <strong>Settings → Repository path</strong> to <code>/mnt/data</code>. Copy the old repository first if its existing recovery points must remain available. FAT and exFAT drives should be mounted with UID and GID <code>1654</code> because they do not support <code>chown</code>.</p>
       </section>
 
       <section id="downloads">

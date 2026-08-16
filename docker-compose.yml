@@ -9,9 +9,11 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
       Urls: http://0.0.0.0:5198
       Arkivix__AllowNonLoopbackAdmin: "true"
+      Arkivix__DefaultBackupPath: /mnt/data
       ARKIVIX_AGENT_RELEASE_BASE_URL: https://github.com/stoxello/Arkivix-Releases/releases/latest/download
     volumes:
       - arkivix-data:/app/App_Data
+      - ${ARKIVIX_BACKUP_SOURCE:-arkivix-backups}:/mnt/data
     read_only: true
     tmpfs:
       - /tmp
@@ -20,3 +22,4 @@ services:
 
 volumes:
   arkivix-data:
+  arkivix-backups:
