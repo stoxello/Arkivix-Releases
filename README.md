@@ -1,6 +1,6 @@
 # Arkivix releases
 
-This is the public binary distribution repository for Arkivix, a closed-source client/server backup system. The application source code is not published here and is not required to install or operate Arkivix.
+Arkivix is a client/server backup system for protecting Windows and Linux machines. This repository provides installation documentation and ready-to-run releases.
 
 - [Installation guide](https://stoxello.github.io/Arkivix-Releases/)
 - [Latest release](https://github.com/stoxello/Arkivix-Releases/releases/latest)
